@@ -24,7 +24,7 @@ public class CatalogSteps {
     }
 
     @Step("Выполнена проверка на количество отображаемых элементов на странице - {0}")
-    public void stepCheckShow(String expectedValue){
+    public void stepCheckShow(int expectedValue){
         new CatalogPage().checkShow(expectedValue);
     }
 
@@ -33,16 +33,6 @@ public class CatalogSteps {
         new CatalogPage().inputTitleElement();
     }
 
-    @Step("Нажимаем на кнопку - Найти")
-    public void stepSearchBtn(){
-        new CatalogPage().searchBtn();
-    }
 
-    @Step("Выполняем проверку соответствия наименования отображенного товара скопированному значению")
-    public void stepCheckElement(){
-        CatalogPage catalogPage = new CatalogPage();
-        catalogPage.waitShowBtnClickable();
-        new CatalogPage().checkElement();
-    }
 
 }

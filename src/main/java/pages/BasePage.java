@@ -12,6 +12,7 @@ import static junit.framework.TestCase.assertEquals;
 
 public class BasePage {
     protected WebDriver driver;
+    public String element = null;
 
     public BasePage(){
         driver = BaseSteps.getDriver();

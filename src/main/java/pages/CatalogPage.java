@@ -12,8 +12,9 @@ import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import steps.BaseSteps;
 
+import java.util.List;
+
 public class CatalogPage extends BasePage {
-    String element = null;
 
     @FindBy(xpath = "//div[contains(@class,'_178jz2CyDL')]")
     WebElement searchMenu;
@@ -22,15 +23,18 @@ public class CatalogPage extends BasePage {
     WebElement inputPrice;
 
     @FindBy(xpath = "//select[@tabindex= '-1' and @autocomplete='off']")
-    public WebElement showMenu;
+    WebElement showMenu;
 
-    @FindBy(xpath = "//*[@id='product-1816088052']/div[4]/div[1]/div[1]/a")
-    WebElement firstElement;
+    @FindBy(xpath = "//button[contains(@class,'button_arrow_down')]")
+    WebElement show;
+
+    @FindBy(xpath = "//div[contains(@class,'n-snippet-')][contains(@id,'product-')]")
+    List <WebElement> elementList;
 
     @FindBy(xpath = "//*[@id='header-search']")
     WebElement stringSearch;
 
-    @FindBy(xpath = "//*[@type = 'submit']")
+    @FindBy(xpath = "/html/body/div[4]/div/div[2]/div[1]/ul/li/div/a/span")
     WebElement search;
 
     public CatalogPage() {
@@ -52,37 +56,30 @@ public class CatalogPage extends BasePage {
     public void waitShowBtnClickable() {
         Wait<WebDriver> wait = new WebDriverWait(BaseSteps.getDriver(), 5, 1000);
         wait.until(ExpectedConditions.visibilityOf(
-                BaseSteps.getDriver().findElement(By.xpath("//button[contains(@class, ' i-bem button_js_inited')]"))));
-    }
+                BaseSteps.getDriver().findElement(By.xpath("//button[contains(@class,'button_arrow_down')]"))));
+}
 
     public void selectShowBtn(){
-        Select select = new Select(showMenu);
-        select.selectByIndex(0);
+        waitShowBtnClickable();
+        show.click();
+        //Thread.sleep(30000);
+       // new Select(showMenu).selectByValue("12");
+        showMenu.findElement(By.xpath("//option[text()='Показывать по 12']")).click();
     }
 
-    public void checkShow(String expectedValue) {
-        String xpath = "//span[contains(text(), 'Показывать по ')][@class='button__text']";
-        String actualValue = BaseSteps.getDriver().findElement(By.xpath(xpath)).getText();
+    public void checkShow(int expectedValue) {
+        int actualValue=elementList.size();
         Assert.assertEquals(expectedValue, actualValue);
     }
 
-    public String  copyElement(){
-        String element = firstElement.getText();
-        return element;
-    }
-
     public void inputTitleElement(){
-        element = copyElement();
-        stringSearch.sendKeys(element);
+        element = String.valueOf(elementList.get(0));
+        String value = element.replace("Телевизор ","").replace("Samsung ", "").replace("LG ", "");
+        stringSearch.sendKeys(value);
     }
 
     public void searchBtn(){
         search.click();
-    }
-
-    public void checkElement() {
-        String actualValue = copyElement();
-        Assert.assertEquals(element, actualValue);
     }
 }
 

@@ -10,6 +10,7 @@ public class ScenarioSteps {
     CatalogSteps catalogSteps = new CatalogSteps();
     MainSteps mainSteps = new MainSteps();
     MarketSteps marketSteps = new MarketSteps();
+    ResultSteps resultSteps = new ResultSteps();
 
     @When("^выбран пункт меню - 'Маркет'")
     public void stepSelectMarket(){
@@ -38,15 +39,11 @@ public class ScenarioSteps {
 
     @When("^выбрано количество отображаемых элементов на странице - 12")
     public void stepsSelectShowBtn() throws InterruptedException {
-        //catalogSteps.stepsSelectShowBtn();
-        Select select = new Select(new CatalogPage().showMenu);
-        select.selectByValue("12");
-        Thread.sleep(10000);
-        select.selectByValue("48");
+        catalogSteps.stepsSelectShowBtn();
     }
 
     @When("^выполнена проверка на количество отображаемых элементов на странице - \"(.*)\"$")
-    public void stepCheckShow(String expectedValue){
+    public void stepCheckShow(int expectedValue){
         catalogSteps.stepCheckShow(expectedValue);
     }
 
@@ -55,13 +52,8 @@ public class ScenarioSteps {
         catalogSteps.stepInputTitleElement();
     }
 
-    @When("^нажимаем на кнопку - Найти")
-    public void stepSearchBtn(){
-        catalogSteps.stepSearchBtn();
-    }
-
     @When("^выполняем проверку соответствия наименования отображенного товара скопированному значению")
     public void stepCheckElement(){
-        catalogSteps.stepCheckElement();
+        resultSteps.stepCheckTitle();
     }
 }
