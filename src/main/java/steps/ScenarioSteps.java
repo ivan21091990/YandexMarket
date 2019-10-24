@@ -1,6 +1,8 @@
 package steps;
 
 import cucumber.api.java.en.When;
+import org.openqa.selenium.support.ui.Select;
+import pages.CatalogPage;
 
 
 public class ScenarioSteps {
@@ -9,7 +11,7 @@ public class ScenarioSteps {
     MainSteps mainSteps = new MainSteps();
     MarketSteps marketSteps = new MarketSteps();
 
-    @When("^выбран пункт меню - 'Маркет' ")
+    @When("^выбран пункт меню - 'Маркет'")
     public void stepSelectMarket(){
         mainSteps.stepSelectMarket();
     }
@@ -25,8 +27,8 @@ public class ScenarioSteps {
     }
 
     @When("^выбраны производители телевизоров - \"(.*)\", \"(.*)\"$")
-    public void stepSelectMenuProductTV(String manufacturer){
-        catalogSteps.stepSelectMenuProductTV(manufacturer);
+    public void stepSelectMenuProductTV(String manufacture, String product){
+        catalogSteps.stepSelectMenuProductTV(manufacture,product);
     }
 
     @When("^установлена стоимость телевизоров - от \"(.*)\"$")
@@ -34,9 +36,13 @@ public class ScenarioSteps {
         catalogSteps.stepSetPrice(price);
     }
 
-    @When("^выбрано количество отображаемых элементов на странице - \"(.*)\"$")
-    public void stepsSelectShowBtn(int value){
-        catalogSteps.stepsSelectShowBtn(value);
+    @When("^выбрано количество отображаемых элементов на странице - 12")
+    public void stepsSelectShowBtn() throws InterruptedException {
+        //catalogSteps.stepsSelectShowBtn();
+        Select select = new Select(new CatalogPage().showMenu);
+        select.selectByValue("12");
+        Thread.sleep(10000);
+        select.selectByValue("48");
     }
 
     @When("^выполнена проверка на количество отображаемых элементов на странице - \"(.*)\"$")
@@ -44,17 +50,17 @@ public class ScenarioSteps {
         catalogSteps.stepCheckShow(expectedValue);
     }
 
-    @When("^копируем первый по списку элемент на странице и вствляем в строку поиска ")
+    @When("^копируем первый по списку элемент на странице и вствляем в строку поиска")
     public void stepInputTitleElement(){
         catalogSteps.stepInputTitleElement();
     }
 
-    @When("^нажимаем на кнопку - Найти ")
+    @When("^нажимаем на кнопку - Найти")
     public void stepSearchBtn(){
         catalogSteps.stepSearchBtn();
     }
 
-    @When("^выполняем проверку соответствия наименования отображенного товара скопированному значению ")
+    @When("^выполняем проверку соответствия наименования отображенного товара скопированному значению")
     public void stepCheckElement(){
         catalogSteps.stepCheckElement();
     }
