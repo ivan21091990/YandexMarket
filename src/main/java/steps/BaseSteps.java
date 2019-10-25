@@ -65,18 +65,4 @@ public class BaseSteps {
             return false;
         }
     }
-
-    protected void fillField(By locator, String value) {
-        driver.findElement(locator).clear();
-        driver.findElement(locator).sendKeys(value);
-    }
-
-    protected void checkFillField(String value, By locator) {
-        assertEquals(value, driver.findElement(locator).getAttribute("value"));
-    }
-
-    protected void TabNavigation() {
-        ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
-        driver.switchTo().window(tabs.get(1));
-    }
 }

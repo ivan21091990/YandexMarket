@@ -6,7 +6,7 @@ import pages.CatalogPage;
 
 
 public class ScenarioSteps {
-    BaseSteps baseSteps = new BaseSteps();
+
     CatalogSteps catalogSteps = new CatalogSteps();
     MainSteps mainSteps = new MainSteps();
     MarketSteps marketSteps = new MarketSteps();
@@ -22,9 +22,14 @@ public class ScenarioSteps {
         marketSteps.stepSelectMenuItems(itemName);
     }
 
-    @When("^выбран пункт меню электроники -  \"(.*)\"$")
+    @When("^выбран пункт меню электроники - \"(.*)\"$")
     public void stepSelectMenuElectronics(String itemName){
         marketSteps.stepSelectMenuElectronics(itemName);
+    }
+
+    @When("^выбрано представление элементов на странице списком")
+    public void stepSelectList(){
+        catalogSteps.stepSelectList();
     }
 
     @When("^выбраны производители телевизоров - \"(.*)\", \"(.*)\"$")
@@ -32,18 +37,23 @@ public class ScenarioSteps {
         catalogSteps.stepSelectMenuProductTV(manufacture,product);
     }
 
+    @When("^выбран производитель наушников - \"(.*)\"$")
+    public void stepSelectMenuProduct(String manufacture){
+        catalogSteps.stepSelectMenuProduct(manufacture);
+    }
+
     @When("^установлена стоимость телевизоров - от \"(.*)\"$")
     public void stepSetPrice(int price){
         catalogSteps.stepSetPrice(price);
     }
 
-    @When("^выбрано количество отображаемых элементов на странице - 12")
-    public void stepsSelectShowBtn() throws InterruptedException {
-        catalogSteps.stepsSelectShowBtn();
+    @When("^выбрано количество отображаемых элементов на странице - \"(.*)\"$")
+    public void stepsSelectShowBtn(int count){
+        catalogSteps.stepsSelectShowBtn(count);
     }
 
     @When("^выполнена проверка на количество отображаемых элементов на странице - \"(.*)\"$")
-    public void stepCheckShow(int expectedValue){
+    public void stepCheckShow(int expectedValue) throws InterruptedException {
         catalogSteps.stepCheckShow(expectedValue);
     }
 

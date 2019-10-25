@@ -7,7 +7,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import steps.BaseSteps;
@@ -25,24 +24,30 @@ public class CatalogPage extends BasePage {
     @FindBy(xpath = "//select[@tabindex= '-1' and @autocomplete='off']")
     WebElement showMenu;
 
-    @FindBy(xpath = "//button[contains(@class,'button_arrow_down')]")
+    @FindBy(xpath = "//button[contains(@class,'button_arrow_down button_size_s')]")
     WebElement show;
 
     @FindBy(xpath = "//div[contains(@class,'n-snippet-')][contains(@id,'product-')]")
     List <WebElement> elementList;
 
+    @FindBy(xpath = "//*[@id=\"product-1816088052\"]//a[contains(@class, 'blue link')]")
+    WebElement firstElement;
+
     @FindBy(xpath = "//*[@id='header-search']")
     WebElement stringSearch;
 
-    @FindBy(xpath = "/html/body/div[4]/div/div[2]/div[1]/ul/li/div/a/span")
-    WebElement search;
+    @FindBy(xpath = "//div[@class = 'suggest2-rich-item__body']")
+    List <WebElement> productList;
+
+    @FindBy(xpath = "//*[@value='list']")
+    WebElement list;
 
     public CatalogPage() {
         PageFactory.initElements(BaseSteps.getDriver(), this);
     }
 
-    public void selectMenuProductTV(String manufacturer) {
-        searchMenu.findElement(By.xpath("//input[@type='checkbox'][contains(@name,'Производитель " + manufacturer + "')]/..")).click();
+    public void selectList(){
+        list.click();
     }
 
     public void selectMenuProduct(String manufacturer) {
@@ -56,30 +61,26 @@ public class CatalogPage extends BasePage {
     public void waitShowBtnClickable() {
         Wait<WebDriver> wait = new WebDriverWait(BaseSteps.getDriver(), 5, 1000);
         wait.until(ExpectedConditions.visibilityOf(
-                BaseSteps.getDriver().findElement(By.xpath("//button[contains(@class,'button_arrow_down')]"))));
-}
-
-    public void selectShowBtn(){
-        waitShowBtnClickable();
-        show.click();
-        //Thread.sleep(30000);
-       // new Select(showMenu).selectByValue("12");
-        showMenu.findElement(By.xpath("//option[text()='Показывать по 12']")).click();
+                BaseSteps.getDriver().findElement(By.xpath("//button[contains(@class,'button_arrow_down button_size_s')]"))));
     }
 
-    public void checkShow(int expectedValue) {
+    public void selectShowBtn(int count){
+        waitShowBtnClickable();
+        show.click();
+        showMenu.findElement(By.xpath("//*[@class = 'popup__content']//*[contains(text(), 'Показывать по " + count + "')]")).click();
+    }
+
+    public void checkShow(int expectedValue) throws InterruptedException {
+        Thread.sleep(3000);
         int actualValue=elementList.size();
         Assert.assertEquals(expectedValue, actualValue);
     }
 
     public void inputTitleElement(){
-        element = String.valueOf(elementList.get(0));
+        element = firstElement.getText();
         String value = element.replace("Телевизор ","").replace("Samsung ", "").replace("LG ", "");
         stringSearch.sendKeys(value);
-    }
-
-    public void searchBtn(){
-        search.click();
+        productList.get(0).click();
     }
 }
 
