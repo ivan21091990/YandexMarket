@@ -11,6 +11,7 @@ public class ScenarioSteps {
     MainSteps mainSteps = new MainSteps();
     MarketSteps marketSteps = new MarketSteps();
     ResultSteps resultSteps = new ResultSteps();
+    FilterSteps filterSteps = new FilterSteps();
 
     @When("^выбран пункт меню - 'Маркет'")
     public void stepSelectMarket(){
@@ -27,24 +28,28 @@ public class ScenarioSteps {
         marketSteps.stepSelectMenuElectronics(itemName);
     }
 
+    @When("^нажата кнопка - 'Все фильтры'")
+    public void stepSelectFilter(){
+        catalogSteps.stepSelectFilter();
+    }
+    @When("^выбраны производители товара - \"(.*)\", \"(.*)\"$")
+    public void stepSelectMenuProduct(String manufacture, String product){
+        filterSteps.stepSelectMenuProduct(manufacture,product);
+    }
+
+    @When("^установлена стоимость товара - от \"(.*)\"$")
+    public void stepSetPrice(int price){
+        filterSteps.stepSetPrice(price);
+    }
+
+    @When("^нажата кнопка - 'Показать подходящие'")
+    public void stepClickSuitable(){
+        filterSteps.stepClickSuitable();
+    }
+
     @When("^выбрано представление элементов на странице списком")
     public void stepSelectList(){
         catalogSteps.stepSelectList();
-    }
-
-    @When("^выбраны производители телевизоров - \"(.*)\", \"(.*)\"$")
-    public void stepSelectMenuProductTV(String manufacture, String product){
-        catalogSteps.stepSelectMenuProductTV(manufacture,product);
-    }
-
-    @When("^выбран производитель наушников - \"(.*)\"$")
-    public void stepSelectMenuProduct(String manufacture){
-        catalogSteps.stepSelectMenuProduct(manufacture);
-    }
-
-    @When("^установлена стоимость телевизоров - от \"(.*)\"$")
-    public void stepSetPrice(int price){
-        catalogSteps.stepSetPrice(price);
     }
 
     @When("^выбрано количество отображаемых элементов на странице - \"(.*)\"$")
@@ -58,7 +63,7 @@ public class ScenarioSteps {
     }
 
     @When("^копируем первый по списку элемент на странице и вствляем в строку поиска")
-    public void stepInputTitleElement(){
+    public void stepInputTitleElement() throws InterruptedException {
         catalogSteps.stepInputTitleElement();
     }
 

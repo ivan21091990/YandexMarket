@@ -7,11 +7,11 @@ public class MarketSteps {
 
     @Step("выбран пункт меню {0}")
     public void stepSelectMenuItems(String itemName){
-        new MarketPage().selectMenuItems("Электроника");
+        new MarketPage().selectMenuItems(itemName);
     }
 
     @Step("выбран пункт меню {0}")
     public void stepSelectMenuElectronics(String itemName){
-        new MarketPage().selectMenuElectronics("Телевизоры");
+        new MarketPage().selectMenuElectronics(itemName);
     }
 }
