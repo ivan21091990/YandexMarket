@@ -48,14 +48,8 @@ public class CatalogPage extends BasePage {
         list.click();
     }
 
-    public void waitShowBtnClickable() {
-        Wait<WebDriver> wait = new WebDriverWait(BaseSteps.getDriver(), 5, 1000);
-        wait.until(ExpectedConditions.visibilityOf(
-                BaseSteps.getDriver().findElement(By.xpath("//button[contains(@class,'button_arrow_down button_size_s')]"))));
-    }
-
-    public void selectShowBtn(int count){
-        waitShowBtnClickable();
+    public void selectShowBtn(int count) throws InterruptedException {
+        Thread.sleep(5000);
         show.click();
         showMenu.findElement(By.xpath("//*[@class = 'popup__content']//*[contains(text(), 'Показывать по " + count + "')]")).click();
     }

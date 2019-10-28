@@ -14,7 +14,6 @@ import java.util.concurrent.TimeUnit;
 
 import static org.junit.Assert.assertEquals;
 
-
 public class BaseSteps {
     protected static WebDriver driver;
 
@@ -24,9 +23,8 @@ public class BaseSteps {
     protected static String baseUrl;
     public static Properties properties = TestProperties.getInstance().getProperties();
 
-
     @Before
-    public static void setUp() throws Exception {
+    public static void setUp(){
         switch (properties.getProperty("browser")){
             case "firefox":
                 System.setProperty("webdriver.gecko.driver", properties.getProperty("webdriver.gecko.driver"));
@@ -43,26 +41,10 @@ public class BaseSteps {
         driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         driver.manage().window().maximize();
         driver.get(baseUrl + "/");
-
     }
 
     @After
-    public static void tearDown() throws Exception {
+    public static void tearDown(){
         driver.quit();
-    }
-
-    @Attachment(type = "image/png", value = "Screenshot")
-    public static byte[] takeScreenshot() {
-        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-    }
-
-
-    protected boolean isElementPresent(By by) {
-        try {
-            driver.findElement(by);
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
-        }
     }
 }

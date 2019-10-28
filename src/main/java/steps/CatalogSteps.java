@@ -17,7 +17,7 @@ public class CatalogSteps {
         catalogPage.selectList();
     }
     @Step("Выбрано количество отображаемых элементов на странице - {0}")
-    public void stepsSelectShowBtn(int count){
+    public void stepsSelectShowBtn(int count) throws InterruptedException {
         new CatalogPage().selectShowBtn(count);
     }
 
@@ -27,7 +27,7 @@ public class CatalogSteps {
     }
 
     @Step("Копируем первый по списку элемент на странице и вствляем в строку поиска")
-    public void stepInputTitleElement() throws InterruptedException {
+    public void stepInputTitleElement(){
         new CatalogPage().inputTitleElement();
     }
 }

@@ -14,36 +14,37 @@ public class ScenarioSteps {
     FilterSteps filterSteps = new FilterSteps();
 
     @When("^выбран пункт меню - 'Маркет'")
-    public void stepSelectMarket(){
+    public void stepSelectMarket() {
         mainSteps.stepSelectMarket();
     }
 
     @When("^выбран пункт меню \"(.*)\"$")
-    public void stepSelectMenuItems(String itemName){
+    public void stepSelectMenuItems(String itemName) {
         marketSteps.stepSelectMenuItems(itemName);
     }
 
     @When("^выбран пункт меню электроники - \"(.*)\"$")
-    public void stepSelectMenuElectronics(String itemName){
+    public void stepSelectMenuElectronics(String itemName) {
         marketSteps.stepSelectMenuElectronics(itemName);
     }
 
     @When("^нажата кнопка - 'Все фильтры'")
-    public void stepSelectFilter(){
+    public void stepSelectFilter() {
         catalogSteps.stepSelectFilter();
     }
+
     @When("^выбраны производители товара - \"(.*)\", \"(.*)\"$")
-    public void stepSelectMenuProduct(String manufacture, String product){
-        filterSteps.stepSelectMenuProduct(manufacture,product);
+    public void stepSelectMenuProduct(String manufacture, String product) {
+        filterSteps.stepSelectMenuProduct(manufacture, product);
     }
 
     @When("^установлена стоимость товара - от \"(.*)\"$")
-    public void stepSetPrice(int price){
+    public void stepSetPrice(int price) {
         filterSteps.stepSetPrice(price);
     }
 
     @When("^нажата кнопка - 'Показать подходящие'")
-    public void stepClickSuitable(){
+    public void stepClickSuitable() {
         filterSteps.stepClickSuitable();
     }
 
@@ -53,7 +54,7 @@ public class ScenarioSteps {
     }
 
     @When("^выбрано количество отображаемых элементов на странице - \"(.*)\"$")
-    public void stepsSelectShowBtn(int count){
+    public void stepsSelectShowBtn(int count) throws InterruptedException {
         catalogSteps.stepsSelectShowBtn(count);
     }
 
@@ -63,7 +64,7 @@ public class ScenarioSteps {
     }
 
     @When("^копируем первый по списку элемент на странице и вствляем в строку поиска")
-    public void stepInputTitleElement() throws InterruptedException {
+    public void stepInputTitleElement(){
         catalogSteps.stepInputTitleElement();
     }
 
